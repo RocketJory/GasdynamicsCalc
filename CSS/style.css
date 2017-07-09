@@ -1,0 +1,56 @@
+html, body {
+  height: 100%;
+}
+
+.center-text {
+	text-align: center;
+	vertical-align: middle;
+}
+
+.equation {
+
+}
+
+.inputs {
+
+}
+
+.container {
+	min-height: 100%;
+	overflow: auto;
+	padding-bottom: 10rem; /* must be same height as the footer */
+}
+
+.custom-row {
+	margin: 2rem;
+}
+
+.custom-header {
+	font-size: 2rem;
+	vertical-align: middle;
+	font-weight: bold;
+	padding: 2rem;
+}
+
+#optionals {
+	display: none;
+}
+
+#more-total-properties {
+	display: none;
+}
+#shock-results {
+	display:none;
+}
+#stag-results {
+	display: none;
+}
+
+#footer{
+	text-align: right;
+	padding-right: 2rem;
+}
+
+a:hover {
+	text-decoration: none;
+}
