@@ -12,5 +12,5 @@ Page hosted at: https://rocketjory.github.io/GasdynamicsCalc/
 
 ## TODO
 
-- 'full mode' should only require 2 gas properties, of the users choice
 - 'full mode' results
+- Hide equations, show on hover
