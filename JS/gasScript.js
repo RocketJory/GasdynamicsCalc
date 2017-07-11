@@ -79,8 +79,6 @@ function calcShockProperties(gam,mach) {
 	stemp = calcShockTemperature(gam,mach,1.0);
 	sdens = calcShockDensity(gam,mach,1.0);
 	spress = calcShockPressure(gam,mach,1.0);
-	sdens = calcShockDensity(gam,mach,1.0);
-	spress = calcShockPressure(gam,mach,1.0);
 	return [stemp,sdens,spress];
 }
 
