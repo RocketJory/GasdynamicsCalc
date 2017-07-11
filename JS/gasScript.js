@@ -43,7 +43,7 @@ function calcShockDensity(gam,mach,dens) {
 	return dratio * dens;
 }
 function calcShockPressure(gam,mach,press) {
-	var pratio = (2.0*gam*mach**2-(gam-1.0))/(gam+1.0)
+	var pratio = ((2.0*gam*mach**2)-(gam-1.0))/(gam+1.0)
 	return pratio * press;
 }
 
@@ -123,6 +123,7 @@ document.addEventListener("DOMContentLoaded", function(){
 
 	// Toggle full display
 	modeBtn.onclick = function() {
+		/*
 		fullMode = ! fullMode;
 		if ( fullMode ) {
 			fullDiv.style.display = "block";
@@ -133,6 +134,7 @@ document.addEventListener("DOMContentLoaded", function(){
 			fullResult.style.display = "none";
 			modeBtn.value = "full";
 		}
+		*/
 	};
 
 	// Show/hide total properties
