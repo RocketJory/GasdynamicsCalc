@@ -33,13 +33,18 @@ function calcTotalPressure(gam,mach,press) {
 
 // Normal shock wave relations
 function calcShockTemperature(gam,mach,tem) {
-
+	var tratio = (1.0+((gam-1.0)/2.0)*mach**2)*((2.0*gam/(gam-1.0))*mach**2-1.0)/
+		((mach**2)*((2.0*gam/(gam-1.0))+(gam-1.0)/2.0));
+	return tratio * tem;
 }
-function calcShockDensity(gam,mach,dens) {
 
+function calcShockDensity(gam,mach,dens) {
+	var dratio = ((gam+1.0)*mach**2)/((gam-1.0)*mach**2+2.0)
+	return dratio * dens;
 }
 function calcShockPressure(gam,mach,press) {
-
+	var pratio = (2.0*gam*mach**2-(gam-1.0))/(gam+1.0)
+	return pratio * press;
 }
 
 // toggles an element's display property
@@ -66,6 +71,19 @@ function calcTotalProperties(gam,mach) {
 	return [ttemp,tdens,tpress];
 }
 
+// Wrapper that gets all of the shock properties given gamma and mach
+function calcShockProperties(gam,mach) {
+	var stemp = 0;
+	var sdens = 0;
+	var spress = 0;
+	stemp = calcShockTemperature(gam,mach,1.0);
+	sdens = calcShockDensity(gam,mach,1.0);
+	spress = calcShockPressure(gam,mach,1.0);
+	sdens = calcShockDensity(gam,mach,1.0);
+	spress = calcShockPressure(gam,mach,1.0);
+	return [stemp,sdens,spress];
+}
+
 // Main program
 document.addEventListener("DOMContentLoaded", function(){
 	// button elements
@@ -82,18 +100,27 @@ document.addEventListener("DOMContentLoaded", function(){
 	var ttempField   = document.getElementById('ttemp');
 	var tdensField   = document.getElementById('tdens');
 	var tpressField  = document.getElementById('tpress');
+	var stempField   = document.getElementById('stemp');
+	var sdensField   = document.getElementById('sdens');
+	var spressField  = document.getElementById('spress');
 	// local vars
 	var ttemp;
 	var tdens;
 	var tpress;
-
+	var stemp;
+	var sdens;
+	var spress;
 	// Calculate
 	computeBtn.onclick = function() {
 		[gamma,mach] = getInputs();
 		[ttemp,tdens,tpress] = calcTotalProperties(gamma,mach);
-		ttempField.value = ttemp;
-		tdensField.value = tdens;
-		tpressField.value = tpress;
+		[stemp,sdens,spress] = calcShockProperties(gamma,mach);
+		ttempField.value = ttemp.toFixed(2);
+		tdensField.value = tdens.toFixed(2);
+		tpressField.value = tpress.toFixed(2);
+		stempField.value = stemp.toFixed(2);
+		sdensField.value = sdens.toFixed(2);
+		spressField.value = spress.toFixed(2);
 	};
 
 	// Toggle full display
