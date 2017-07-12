@@ -12,5 +12,6 @@ Page hosted at: https://rocketjory.github.io/GasdynamicsCalc/
 
 ## TODO
 
-- 'full mode' results
+- Add post-shock mach number
 - Hide equations, show on hover
+- Unit display?

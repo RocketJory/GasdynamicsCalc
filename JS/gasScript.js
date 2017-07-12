@@ -5,6 +5,17 @@ var fullMode = false;
 var showStag = false;
 var showShock = false;
 
+//-------------------------------------------------------
+// MISC
+//-------------------------------------------------------
+function replaceNaNwithZero( val ) {
+	if (isNaN(parseFloat(val))) {
+		return 0.0;
+	}
+	return Number(val);
+}
+
+
 //--------------------------------------------------------
 // READING
 //--------------------------------------------------------
@@ -29,9 +40,9 @@ function getOptInputs() {
 	var tempField  = document.getElementById('temp');
 	var densField  = document.getElementById('dens');
 	var pressField = document.getElementById('press');
-	var tempVal = tempField.value;
-	var densVal = densField.value;
-	var pressVal = pressField.value;
+	var tempVal  = replaceNaNwithZero( tempField.value );
+	var densVal  = replaceNaNwithZero( densField.value );
+	var pressVal = replaceNaNwithZero( pressField.value );
 	return [tempVal, densVal, pressVal];
 }
 
@@ -118,6 +129,16 @@ function calcTotalValues(gam,mach,temp,dens,press) {
 	return [temp0,dens0,press0];
 }
 
+function calcShockValues(gam,mach,temp,dens,press) {
+	var temp2 = 0;
+	var dens2 = 0;
+	var press2 = 0;
+	temp2 = calcShockTemperature(gam,mach,temp);
+	dens2 = calcShockDensity(gam,mach,dens);
+	press2 = calcShockPressure(gam,mach,press);
+	return [temp2,dens2,press2];
+}
+
 //--------------------------------------------------------------
 // MAIN PROGRAM
 //--------------------------------------------------------------
@@ -130,6 +151,7 @@ document.addEventListener("DOMContentLoaded", function(){
 	// page elements
 	var fullDiv      = document.getElementById('optionals');
 	var fullResult   = document.getElementById('more-total-properties');
+	var fullShock    = document.getElementById('more-shock-properties');
 	var stagResults  = document.getElementById('stag-results');
 	var shockResults = document.getElementById('shock-results');
 	// FIELDS
@@ -145,10 +167,17 @@ document.addEventListener("DOMContentLoaded", function(){
 	var stempField   = document.getElementById('stemp');
 	var sdensField   = document.getElementById('sdens');
 	var spressField  = document.getElementById('spress');
+	// Shock values
+	var stempValField  = document.getElementById('T2');
+	var sdensValField  = document.getElementById('d2');
+	var spressValField = document.getElementById('P2');
 	// local vars
 	var ttemp;
 	var tdens;
 	var tpress;
+	var temp;
+	var dens;
+	var press;
 	var temp0;
 	var dens0;
 	var press0;
@@ -168,11 +197,15 @@ document.addEventListener("DOMContentLoaded", function(){
 		spressField.value = spress.toFixed(2);
 		// Compute stagnation values if full mode is on
 		if (fullMode === true) {
-			[temp0,dens0,press0] = getOptInputs();
-			[temp0,dens0,press0] = calcTotalValues(gamma,mach,temp0,dens0,press0);
+			[temp,dens,press] = getOptInputs();
+			[temp0,dens0,press0] = calcTotalValues(gamma,mach,temp,dens,press);
+			[temp2,dens2,press2] = calcShockValues(gamma,mach,temp,dens,press);
 			ttempValField.value  = temp0.toFixed(2);
 			tdensValField.value  = dens0.toFixed(2);
 			tpressValField.value = press0.toFixed(2);
+			stempValField.value  = temp2.toFixed(2);
+			sdensValField.value  = dens2.toFixed(2);
+			spressValField.value = press2.toFixed(2);
 		};
 	};
 
@@ -182,10 +215,12 @@ document.addEventListener("DOMContentLoaded", function(){
 		if ( fullMode ) {
 			fullDiv.style.display = "block";
 			fullResult.style.display = "block";
+			fullShock.style.display = "block";
 			modeBtn.value = "simple";
 		} else {
 			fullDiv.style.display = "none";
 			fullResult.style.display = "none";
+			fullShock.style.display = "none";
 			modeBtn.value = "full";
 		};
 	};

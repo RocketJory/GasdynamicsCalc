@@ -39,6 +39,9 @@ html, body {
 #more-total-properties {
 	display: none;
 }
+#more-shock-properties {
+	display: none;
+}
 #shock-results {
 	display:none;
 }

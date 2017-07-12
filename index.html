@@ -61,7 +61,7 @@
 								<input class="form-control" id="temp" type="text" placeholder="298.15"/>
 							</div>
 						</div>
-						<!--temp input-->
+						<!--dens input-->
 						<div class="form-group col-xs-12">
 							<div class="col-xs-0 col-md-3"></div>
 							<label class="control-label col-xs-6 col-md-2" for="dens">
@@ -71,7 +71,7 @@
 								<input class="form-control" id="dens" type="text" placeholder="1.14"/>
 							</div>
 						</div>
-						<!--temp input-->
+						<!--press input-->
 						<div class="form-group col-xs-12">
 							<div class="col-xs-0 col-md-3"></div>
 							<label class="control-label col-xs-6 col-md-2" for="press">
@@ -89,6 +89,7 @@
 					<div class="col-xs-4 col-md-2">
 						<input class="btn btn-primary" type="button" id="compute" value="compute!" />
 					</div>
+					<!--full/simple mode-->
 					<div class="col-xs-4 col-md-2">
 						<input class="btn btn-default" type="button" id="more-button" value="full" />
 					</div>
@@ -203,9 +204,33 @@
 							</div>
 						</div>
 					</form>
-
+					<form id="more-shock-properties">
+						<div class="form-group temp2 col-xs-12">
+							<label class="control-label col-xs-6" for="T2">
+								<span lang="latex">T_2</span>:
+							</label>
+							<div class="col-xs-4">
+								<input class="form-control" id="T2" type="text" />
+							</div>
+						</div>
+						<div class="form-group dens2 col-xs-12">
+							<label class="control-label col-xs-6" for="d2">
+								<span lang="latex">\rho_2</span>:
+							</label>
+							<div class="col-xs-4">
+								<input class="form-control" id="d2" type="text" />
+							</div>
+						</div>
+						<div class="form-group press2 col-xs-12">
+							<label class="control-label col-xs-6" for="P2">
+								<span lang="latex">P_2</span>:
+							</label>
+							<div class="col-xs-4">
+								<input class="form-control" id="P2" type="text" />
+							</div>
+						</div>
+					</form>
 				</div>
-
 			</div>
 		</div>
 	</div>
